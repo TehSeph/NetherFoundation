@@ -10,10 +10,10 @@
 
 Modpack Permissions
 -------------------
-The mod author, TehSeph, hereby grants anyone permission to use Nether Foundation in any modpack as long as it is provided publicly and for free.
+The mod authors hereby grant anyone permission to use Nether Foundation in any modpack as long as it is provided publicly and for free.
 
 - If you're **not** making money: You are allowed to use and distribute the mod however you want. :smile:
-- If you're making money off my mod: You're a **scumbag** and you **don't** have my permission. :angry:
+- If you're making money off the mod: You're a **scumbag** and you **don't** have our permission. :angry:
 
 ---
 
