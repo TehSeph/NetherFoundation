@@ -210,7 +210,7 @@ public class EntityHellfish extends EntitySilverfish {
 
                 World world = this.entity.world;
 
-                BlockPos blockPos = (new BlockPos(this.entity.posX, this.entity.posY + 0.5D, this.entity.posZ)).offset(this.facing);
+                BlockPos blockPos = new BlockPos(this.entity.posX, this.entity.posY + 0.5D, this.entity.posZ).offset(this.facing);
                 IBlockState blockState = world.getBlockState(blockPos);
 
                 if (blockState == Blocks.NETHERRACK.getDefaultState()) {
