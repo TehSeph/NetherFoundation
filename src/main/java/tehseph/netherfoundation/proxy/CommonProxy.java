@@ -8,10 +8,10 @@ import slimeknights.tconstruct.shared.TinkerCommons;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.enchantment.Enchantment;
-import net.minecraft.entity.monster.EntityPigZombie;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.monster.*;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Enchantments;
+import net.minecraft.init.*;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -19,9 +19,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fml.common.Loader;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.event.*;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import java.util.List;
@@ -69,7 +67,7 @@ public class CommonProxy {
 
         if (NFConfig.EXPLOSIONS && isNetherOre(blockState) && !player.isCreative()) {
 
-            int multi = (NFConfig.EXPLOSIONS_FORTUNE && fortune) ? 2 : 1;
+            int multi = NFConfig.EXPLOSIONS_FORTUNE && fortune ? 2 : 1;
 
             if (!(silktouch && NFConfig.EXPLOSIONS_SILKTOUCH)) {
                 if (world.rand.nextDouble() <= NFConfig.EXPLOSIONS_CHANCE * multi) {

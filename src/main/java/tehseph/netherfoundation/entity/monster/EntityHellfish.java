@@ -103,6 +103,7 @@ public class EntityHellfish extends EntitySilverfish {
         private int lookForFriends;
 
         public AISummonHellfish(EntityHellfish hellfish) {
+            super();
             this.hellfish = hellfish;
         }
 

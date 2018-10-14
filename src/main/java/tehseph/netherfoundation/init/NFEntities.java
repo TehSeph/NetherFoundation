@@ -16,11 +16,11 @@ public class NFEntities {
 
     public static void preInitCommon() {
 
-        int id = 1;
+        int entitytID = 1;
 
         if (NFConfig.HELLFISH) {
 
-            EntityRegistry.registerModEntity(new ResourceLocation(Reference.MOD_ID + ":hellfish"), EntityHellfish.class, Reference.MOD_ID + ".hellfish", id++, NetherFoundation.INSTANCE, 64, 1, true, 0xC63010, 0xFFB030);
+            EntityRegistry.registerModEntity(new ResourceLocation(Reference.MOD_ID + ":hellfish"), EntityHellfish.class, Reference.MOD_ID + ".hellfish", entitytID++, NetherFoundation.INSTANCE, 64, 1, true, 0xC63010, 0xFFB030);
             LootTableList.register(EntityHellfish.LOOT_TABLE);
 
         }
