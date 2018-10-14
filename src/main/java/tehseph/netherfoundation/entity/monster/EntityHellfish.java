@@ -63,11 +63,11 @@ public class EntityHellfish extends EntitySilverfish {
 
         if (world.isRemote) {
 
-            double x = this.posX + (this.rand.nextDouble() - 0.5D) * this.width;
-            double y = this.posY + this.rand.nextDouble() * this.height;
-            double z = this.posZ + (this.rand.nextDouble() - 0.5D) * this.width;
+            double flameX = this.posX + (this.rand.nextDouble() - 0.5D) * this.width;
+            double flameY = this.posY + this.rand.nextDouble() * this.height;
+            double flameZ = this.posZ + (this.rand.nextDouble() - 0.5D) * this.width;
 
-            this.world.spawnParticle(EnumParticleTypes.FLAME, x, y, z, 0.0D, 0.0D, 0.0D);
+            this.world.spawnParticle(EnumParticleTypes.FLAME, flameX, flameY, flameZ, 0.0D, 0.0D, 0.0D);
 
         }
 
@@ -179,7 +179,7 @@ public class EntityHellfish extends EntitySilverfish {
 
                     this.facing = EnumFacing.random(random);
 
-                    BlockPos blockPos = (new BlockPos(this.entity.posX, this.entity.posY + 0.5D, this.entity.posZ)).offset(this.facing);
+                    BlockPos blockPos = new BlockPos(this.entity.posX, this.entity.posY + 0.5D, this.entity.posZ).offset(this.facing);
                     IBlockState blockState = world.getBlockState(blockPos);
 
                     if (blockState == Blocks.NETHERRACK.getDefaultState()) {

@@ -15,6 +15,7 @@ public class ClientProxy extends CommonProxy {
 		super.preInit(event);
 
 		NFConfig.preInitClient();
+
         NFBlocks.preInitClient();
         NFEntities.preInitClient();
 

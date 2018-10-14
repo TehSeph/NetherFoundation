@@ -29,9 +29,11 @@ public class CommonProxy {
     public void preInit(FMLPreInitializationEvent event) {
 
         NFConfig.preInitCommon(event.getSuggestedConfigurationFile());
+
         NFBlocks.preInitCommon();
         NFEntities.preInitCommon();
 
+        NFOreDict.preInitCommon();
         NFCompat.preInitCommon();
 
         MinecraftForge.EVENT_BUS.register(this);
@@ -108,9 +110,7 @@ public class CommonProxy {
 
     private boolean isNetherOre(IBlockState blockState) {
 
-        if (Loader.isModLoaded("tconstruct")) {
-            if (blockState.getBlock() == TinkerCommons.blockOre) return true;
-        }
+        if (Loader.isModLoaded("tconstruct") && blockState.getBlock() == TinkerCommons.blockOre) return true;
 
         if (blockState == TFBlocks.blockOreFluid.getStateFromMeta(3)) return true;
         if (blockState.getBlock() == NFBlocks.NETHER_ORE) return true;

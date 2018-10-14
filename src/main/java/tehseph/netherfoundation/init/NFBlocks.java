@@ -3,21 +3,15 @@ package tehseph.netherfoundation.init;
 import tehseph.netherfoundation.Reference;
 import tehseph.netherfoundation.common.block.*;
 
-import cofh.core.fluid.BlockFluidInteractive;
-import cofh.core.util.helpers.StringHelper;
-import cofh.thermalfoundation.init.TFFluids;
-
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.Block;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraftforge.oredict.OreDictionary;
 
 @ObjectHolder(Reference.MOD_ID)
 public class NFBlocks {
@@ -27,66 +21,38 @@ public class NFBlocks {
 
     public static void preInitCommon() {
 
-        ItemBlock itemBlock;
+        if (NFConfig.HELLFISH) registerCommon(HELLFISH, new ItemBlock(HELLFISH), "hellfish");
 
-        if (NFConfig.HELLFISH) {
-
-            HELLFISH.setRegistryName("hellfish");
-            ForgeRegistries.BLOCKS.register(HELLFISH);
-
-            itemBlock = new ItemBlock(HELLFISH);
-            itemBlock.setRegistryName("hellfish");
-            ForgeRegistries.ITEMS.register(itemBlock);
-
-        }
-
-        NETHER_ORE.setRegistryName("ore");
-        ForgeRegistries.BLOCKS.register(NETHER_ORE);
-
-        itemBlock = new ItemBlockNetherOre(NETHER_ORE);
-        itemBlock.setRegistryName("ore");
-        ForgeRegistries.ITEMS.register(itemBlock);
-
-        for (int i = 0; i < BlockNetherOre.Type.values().length; i++) {
-
-            String oreName = BlockNetherOre.Type.byMetadata(i).getName();
-            ItemStack oreStack = new ItemStack(NETHER_ORE, 1, i);
-
-            OreDictionary.registerOre("oreNether" + StringHelper.titleCase(oreName), oreStack);
-
-        }
-
-        IBlockState netherLead = NETHER_ORE.getDefaultState().withProperty(BlockNetherOre.VARIANT, BlockNetherOre.Type.LEAD);
-        IBlockState netherGold = NETHER_ORE.getDefaultState().withProperty(BlockNetherOre.VARIANT, BlockNetherOre.Type.GOLD);
-        ((BlockFluidInteractive) TFFluids.blockFluidMana).addInteraction(netherLead, netherGold);
-
-        IBlockState netherSilver  = NETHER_ORE.getDefaultState().withProperty(BlockNetherOre.VARIANT, BlockNetherOre.Type.SILVER);
-        IBlockState netherMithril = NETHER_ORE.getDefaultState().withProperty(BlockNetherOre.VARIANT, BlockNetherOre.Type.MITHRIL);
-        ((BlockFluidInteractive) TFFluids.blockFluidMana).addInteraction(netherSilver, netherMithril);
+        registerCommon(NETHER_ORE, new ItemBlockNetherOre(NETHER_ORE), "ore");
 
     }
 
     @SideOnly(Side.CLIENT)
     public static void preInitClient() {
 
-        Item item;
-        ModelResourceLocation model;
-
-        if (NFConfig.HELLFISH) {
-
-            item = Item.getItemFromBlock(HELLFISH);
-            model = new ModelResourceLocation(HELLFISH.getRegistryName(), "inventory");
-            ModelLoader.setCustomModelResourceLocation(item, 0, model);
-
-        }
+        if (NFConfig.HELLFISH) registerClient(HELLFISH, 0, "inventory");
 
         for (int i = 0; i < BlockNetherOre.Type.values().length; i++) {
-
-            item = Item.getItemFromBlock(NETHER_ORE);
-            model = new ModelResourceLocation(NETHER_ORE.getRegistryName(), "type=" + BlockNetherOre.Type.byMetadata(i).getName());
-            ModelLoader.setCustomModelResourceLocation(item, i, model);
-
+            registerClient(NETHER_ORE, i, "type=" + BlockNetherOre.Type.byMetadata(i).getName());
         }
+
+    }
+
+    private static void registerCommon(Block block, ItemBlock itemBlock, String name) {
+
+        block.setRegistryName(name);
+        ForgeRegistries.BLOCKS.register(block);
+
+        itemBlock.setRegistryName(name);
+        ForgeRegistries.ITEMS.register(itemBlock);
+
+    }
+
+    @SideOnly(Side.CLIENT)
+    private static void registerClient(Block block, int metadata, String variant) {
+
+        ModelResourceLocation model = new ModelResourceLocation(block.getRegistryName(), variant);
+        ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(block), metadata, model);
 
     }
 
